@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 //--------------------------------------------------------------------------
 //USELESS stands for "Unix system extremely late execution software system".
 //This program reads the file specified via launch from command line and
@@ -15,7 +16,6 @@
 //
 //USELESS program v1.0 by Hedgehog1024
 //--------------------------------------------------------------------------
-#define maxchardelay 4
 #define maxcharprog 79
 
 typedef struct {
@@ -24,9 +24,11 @@ typedef struct {
 } entry;
 
 size_t countlines(FILE* file);
-void allocate_arr(entry* arr, size_t countline);
-void readentries(FILE file, entry* arr, size_t countline);
-void sortentries(entry* arr);
+void allocate_arr(entry** arr, size_t countline);
+void readentries(FILE* file, entry* arr, size_t countline);
+void sortentries(entry* arr, size_t countline);
+void execute(char* progname);
+int min (ibt a, int b);
 
 int main (int argc, char** argv)
 {
@@ -48,8 +50,20 @@ int main (int argc, char** argv)
         return 0;
 
     rewind(file); //set file cursor at the beginning
-    allocate_arr(arr, countline);
+
+    entry* arr;
+    allocate_arr(&arr, countline);
     readentries(file, arr, countline);
+    sortentries(arr, countline);
+
+    int expired = 0; size_t i;
+    for (i = 0; i < countline; ++i)
+    {
+        sleep(min(arr[i].delay, expired));
+        execute(arr[i].progname);
+        expired = arr[i].delay;
+    }
+    fprintf(stderr, "Done\n");
     return 0;
 }
 
@@ -60,47 +74,60 @@ size_t countlines(FILE* file)
         ch = fgetc(file);
         if (ch == '\n')
              ++countline;
-    } while (ch != EOF)
+    } while (ch != EOF);
     if (ch != '\n' && countline != 0)
         ++countline;
     return countline;
 }
 
-void allocate_arr(entry* arr, size_t countline)
+void allocate_arr(entry** arr, size_t countline)
 {
-    arr = malloc(sizeof(entry)*countline);
-    if (arr == NULL)
+    *arr = malloc(sizeof(entry)*countline);
+    if (*arr == NULL)
     {
         fprintf(stderr, "Failed to allocate memory.\n");
         exit(-1);
     }
-    int i;
+    size_t i;
     for (i = 0; i < countline; ++i)
     {
-        arr[i].progname = malloc(sizeof(char)*maxcharprog+1);
+        (*arr)[i].progname = malloc(sizeof(char)*maxcharprog+1);
     }
     return;
 }
 
-void readentries(FILE file, entry* arr, size_t countline)
+void readentries(FILE* file, entry* arr, size_t countline)
 {
-    int i;
+    size_t i;
     for (i = 0; i < countline; ++i)
     {
-        fscanf(file, "%d %79s", &(arr[i].delay), &(arr[i].progname));
+        fscanf(file, "%d %79s", &(arr[i].delay), arr[i].progname);
     }
     return;
 }
 
 int compare_entries(const void* a, const void* b)
 {
-    entry entry_a = (entry*)a;
-    entry entry_b = (entry*)b;
-    return entry_a->delay - entry_b->delay;
+    entry entry_a = *(entry*)a;
+    entry entry_b = *(entry*)b;
+    return entry_a.delay - entry_b.delay;
 }
 
 void sortentries(entry* arr, size_t countline)
 {
     qsort(arr, countline, sizeof(entry), compare_entries);
     return;
+}
+
+void execute(char* progname)
+{
+    system(progname);
+}
+
+int min (int a, int b)
+{
+    if (a < b)
+        return a;
+    else
+        return b;
 }
