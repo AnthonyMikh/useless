@@ -1,8 +1,8 @@
 USELESS - Unix system extremely late execution software system.
 This program reads the file specified via launch from command line and
 launch programs described in file with specified delay.
-File format is plain text with lines like
-<delay in seconds> <program to launch>
+File format is plain text with lines like<br>
+\<delay in seconds\> \<program to launch\><br>
 Lines don't have to be ordered by delay.
 
 This version of program was designed by Anthony Mikhailov aka Hedgehog1024
