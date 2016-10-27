@@ -1,5 +1,5 @@
-#include "shared.h"
-#include "utils.h"
+#include "../headers/shared.h"
+#include "../headers/utils.h"
 
 size_t countlines(FILE* file)
 {
