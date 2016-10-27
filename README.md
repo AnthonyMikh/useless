@@ -7,7 +7,7 @@ File format is plain text with lines like<br>
 ```
 Lines don't have to be ordered by delay.
 
-This version of program was designed by Anthony Mikhailov aka Hedgehog1024
-You can contact him by e-mail hedgehog1024@yandex.ru
+This version of program was designed by Anthony Mikhailov aka Hedgehog1024.
+You can contact him by e-mail hedgehog1024@yandex.ru.
 Feel free to examine, copy, modify and redistribute this program and it's
 source code in any way.
