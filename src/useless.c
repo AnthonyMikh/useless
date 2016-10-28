@@ -21,13 +21,6 @@ typedef struct {
     char* progname;
 } entry;
 
-size_t countlines(FILE* file);
-void allocate_arr(entry** arr, size_t countline);
-void readentries(FILE* file, entry* arr, size_t countline);
-void sortentries(entry* arr, size_t countline);
-void execute(char* progname);
-int min (ibt a, int b);
-
 int main (int argc, char** argv)
 {
     if (argc == 1) //launched with no arguments
