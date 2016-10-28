@@ -57,7 +57,7 @@ int main (int argc, char** argv)
     int expired = 0; size_t i;
     for (i = 0; i < countline; ++i)
     {
-        sleep(min(arr[i].delay, expired));
+        sleep(max(arr[i].delay - expired, 0));
         execute(arr[i].progname);
         expired = arr[i].delay;
     }
