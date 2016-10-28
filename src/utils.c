@@ -58,9 +58,9 @@ void execute(char* progname)
     system(progname);
 }
 
-int min (int a, int b)
+int max (int a, int b)
 {
-    if (a < b)
+    if (a > b)
         return a;
     else
         return b;
