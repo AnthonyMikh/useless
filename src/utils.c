@@ -1,6 +1,11 @@
 #include "../headers/shared.h"
 #include "../headers/utils.h"
 
+typedef struct {
+    int delay;
+    char* progname;
+} entry;
+
 size_t countlines(FILE* file)
 {
     char ch; size_t countline = 0;
