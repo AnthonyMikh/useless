@@ -14,7 +14,6 @@
 //
 //USELESS program v1.0 by Hedgehog1024
 //--------------------------------------------------------------------------
-#define maxcharprog 79
 
 int main (int argc, char** argv)
 {
