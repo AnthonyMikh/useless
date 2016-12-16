@@ -1,6 +1,8 @@
 #include "../headers/shared.h"
 #include "../headers/utils.h"
 
+#define maxcharprog 79
+
 typedef struct {
     int delay;
     char* progname;
