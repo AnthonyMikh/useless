@@ -16,11 +16,6 @@
 //--------------------------------------------------------------------------
 #define maxcharprog 79
 
-typedef struct {
-    int delay;
-    char* progname;
-} entry;
-
 int main (int argc, char** argv)
 {
     if (argc == 1) //launched with no arguments
